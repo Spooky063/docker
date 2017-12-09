@@ -41,7 +41,7 @@ Il est décrit dans le fichier `docker-compose.yml` sous la clé `container_name
 
 Pour le network du container, il suffit de lancer une simple commande.
 
-```
+```bash
 docker inspect <mysql_container_name> -f "{{json .HostConfig.NetworkMode }}"
 ```
 
@@ -49,7 +49,7 @@ docker inspect <mysql_container_name> -f "{{json .HostConfig.NetworkMode }}"
 
 Avant tout, il faut lancer le container mysql.
 
-```
+```bash
 docker-compose up
 ```
 
@@ -65,7 +65,7 @@ Pour lancer PhpMyAdmin, on utilise plusieurs options :
  * net : pour lier le bon network à phpmyadmin afin d'éviter les problèmes (getaddrinfo failed)
  * p : choisir quelle port on lie au port `80` de l'image phpmyadmin
 
-```
+```bash
 docker run --rm --name pma --link <mysql_container_name>:db --net <network> -p <port_out>:80 phpmyadmin/phpmyadmin
 ```
 
@@ -86,7 +86,7 @@ Pour lancer Adminer, on utilise plusieurs options :
  * net : pour lier le bon network à adminer afin d'éviter les problèmes (getaddrinfo failed)
  * p : choisir quelle port on lie au port `8080` de l'image adminer
 
-```
+```bash
 docker run --rm --name adminer --link <mysql_container_name>:db --net <network> -p <port_out>:8080 adminer
 ```
 
