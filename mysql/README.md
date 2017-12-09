@@ -44,6 +44,17 @@ Pour le network du container, il suffit de lancer une simple commande.
 docker inspect <mysql_container_name> -f "{{json .HostConfig.NetworkMode }}"
 ```
 
+### Préalable
+
+Avant tout, il faut lancer le container mysql.
+
+```
+docker-compose up
+```
+
+ > Si un problème intervient comme un conflit sur le nom du container, il suffit de supprimer le container.  
+ Vu qu'un volume est monté sur l'image aucune données ne sera perdu.
+
 ### PhpMyAdmin
 
 Pour lancer phpmyadmin, on utilise plusieurs options :
