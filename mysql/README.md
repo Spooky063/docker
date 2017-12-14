@@ -101,7 +101,11 @@ Vous pourrez ensuite vous connecter avec les identifiants présent dans le fichi
 ## Manipulations
 
 ### Backup
+```bash
 docker exec mysql /usr/bin/mysqldump -u <user> --password=<password> -r <database> | Set-Content backup.sql
+```
 
 ### Restore
+```bash
 cat backup.sql | docker exec -i mysql /usr/bin/mysql -u <user> --password=<password> <database>
+```
