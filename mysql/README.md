@@ -97,3 +97,11 @@ make adminer
 Il suffit ensuite de se rendre sur votre navigateur et de taper : http://localhost:<port_out>.  
 Vous pourrez ensuite vous connecter avec les identifiants présent dans le fichier
 `docker-compose.yml`.
+
+## Manipulations
+
+### Backup
+docker exec mysql /usr/bin/mysqldump -u <user> --password=<password> -r <database> | Set-Content backup.sql
+
+### Restore
+cat backup.sql | docker exec -i mysql /usr/bin/mysql -u <user> --password=<password> <database>
