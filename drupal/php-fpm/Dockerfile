@@ -35,6 +35,6 @@ ENV DRUPAL_VERSION 8.4.0
 
 RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative  --no-interaction
 
-RUN composer create-project drupal/drupal:$DRUPAL_VERSION /var/www/html
+RUN composer create-project drupal/drupal:$DRUPAL_VERSION . --prefer-dist --no-progress
 
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data .
