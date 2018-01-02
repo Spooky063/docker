@@ -31,7 +31,8 @@ WORKDIR /var/www/html
 CMD ["php-fpm"]
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV DRUPAL_VERSION 8.4.0
+ARG DRUPAL_VERSION=8.4.0
+ENV DRUPAL_VERSION ${DRUPAL_VERSION}
 
 RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative  --no-interaction
 
