@@ -1,0 +1,32 @@
+version: '2'
+services:
+  apache2:
+    image: registry.byperiscope.com/docker/apache
+    restart: on-failure
+    ports:
+      - 80:80
+      - 443:443
+    volumes_from:
+      - php-fpm:ro
+    links:
+      - php-fpm
+  php-fpm:
+    build: php-fpm
+    restart: on-failure
+    volumes:
+      - www:/var/www/html
+  mysql:
+    image: mariadb
+    restart: on-failure
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=drupal
+      - MYSQL_USER=drupal
+      - MYSQL_PASSWORD=drupal
+      - MYSQL_ROOT_PASSWORD=root
+volumes:
+  www:
+    driver: local
+  mysql:
+    driver: local
