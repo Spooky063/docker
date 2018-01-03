@@ -7,10 +7,10 @@ fi
 
 if [ "$1" = 'php-fpm' ]; then
   if [ ! -f composer.json ]; then
-    composer create-project drupal/drupal:$DRUPAL_VERSION /var/www/html
+    composer create-project drupal/drupal:$DRUPAL_VERSION .
   fi
 
-  chown -R www-data:www-data .
+  chown -R www-data .
 fi
 
 exec docker-php-entrypoint "$@"

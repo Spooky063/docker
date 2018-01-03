@@ -1,0 +1,8 @@
+**/*.log
+**/._*
+**/.DS_Store
+**/.gitignore
+**/.gitattributes
+**/Dockerfile
+.dockerignore
+docker-compose.yml

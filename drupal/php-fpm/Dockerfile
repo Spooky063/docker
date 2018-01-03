@@ -28,6 +28,7 @@ COPY --from=0 /usr/bin/composer /usr/bin/composer
 COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
 WORKDIR /var/www/html
+ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
@@ -38,4 +39,4 @@ RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress
 
 RUN composer create-project drupal/drupal:$DRUPAL_VERSION . --prefer-dist --no-progress
 
-RUN chown -R www-data:www-data .
+RUN chown -R www-data .

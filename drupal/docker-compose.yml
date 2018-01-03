@@ -11,10 +11,18 @@ services:
     links:
       - php-fpm
   php-fpm:
-    build: php-fpm
+    build:
+      context: php-fpm
+      args:
+        DRUPAL_VERSION: 8.4.3
     restart: on-failure
     volumes:
       - www:/var/www/html
+      - private:/var/www/private
+      - ./www/config:/var/www/html/sites/config
+      - ./www/modules/custom:/var/www/html/modules/custom
+      - ./www/profiles:/var/www/html/profiles
+      - ./www/themes/custom:/var/www/html/themes/custom
   mysql:
     image: mariadb
     restart: on-failure
@@ -27,6 +35,8 @@ services:
       - MYSQL_ROOT_PASSWORD=root
 volumes:
   www:
+    driver: local
+  private:
     driver: local
   mysql:
     driver: local
