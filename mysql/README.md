@@ -43,6 +43,8 @@ Pour le network du container, il suffit de lancer une simple commande.
 
 ```bash
 docker inspect <mysql_container_name> -f "{{json .HostConfig.NetworkMode }}"
+
+docker inspect -f "{{json .HostConfig.NetworkMode }}" $(docker-compose ps -q <mysql_container_name>)
 ```
 
 ### Préalable
