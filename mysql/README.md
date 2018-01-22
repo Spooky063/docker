@@ -40,7 +40,7 @@ Il est décrit dans le fichier `docker-compose.yml` sous la clé `container_name
 ```
 
 Pour le network du container, il suffit de lancer une simple commande.
-
+drupal
 ```bash
 docker inspect <mysql_container_name> -f "{{json .HostConfig.NetworkMode }}"
 
@@ -110,4 +110,15 @@ docker exec mysql /usr/bin/mysqldump -u <user> --password=<password> -r <databas
 ### Restore
 ```bash
 cat backup.sql | docker exec -i mysql /usr/bin/mysql -u <user> --password=<password> <database>
+```
+
+### Size
+Liste la taille de chacune des base de données
+```
+SELECT table_schema AS "Database", SUM(data_length + index_length) / 1024 / 1024 AS "Size (MB)" FROM information_schema.TABLES GROUP BY table_schema;
+```
+
+Liste les tables d'une base de données selon leur taille
+```
+SELECT table_schema as Database, table_name AS Table, round(((data_length + index_length) / 1024 / 1024), 2) Size in MB FROM information_schema.TABLES WHERE table_schema = '<database>' ORDER BY (data_length + index_length) DESC;
 ```
