@@ -103,16 +103,31 @@ Vous pourrez ensuite vous connecter avec les identifiants présent dans le fichi
 ## Manipulations
 
 ### Backup
+Attention : il faut bien vérifier que le container tourne.
 ```bash
-docker exec mysql /usr/bin/mysqldump -u <user> --password=<password> -r <database> | Set-Content backup.sql
+docker exec <mysql_container_name> /usr/bin/mysqldump -u <user> --password=<password> -r <database> | Set-Content backup.sql
+
+docker exec $(docker-compose ps -q <mysql_container_name>) /usr/bin/mysqldump -u <user> --password=<password> -r <database> | Set-Content backup.sql
 ```
 
-### Restore
+### Restauration
+Attention : il faut bien vérifier que le container tourne.
+
+Pour restaurer un fichier .sql
 ```bash
-cat backup.sql | docker exec -i mysql /usr/bin/mysql -u <user> --password=<password> <database>
+cat backup.sql | docker exec -i <mysql_container_name> /usr/bin/mysql -u <user> --password=<password> <database>
+
+cat backup.sql | docker exec -i $(docker-compose ps -q <mysql_container_name>) /usr/bin/mysql -u <user> --password=<password> <database>
 ```
 
-### Size
+Pour restaurer un fichier .sql.gz
+```bash
+zcat backup.sql.gz | docker exec -i <mysql_container_name> /usr/bin/mysql -u <user> --password=<password> <database>
+
+zcat backup.sql.gz | docker exec -i $(docker-compose ps -q <mysql_container_name>) /usr/bin/mysql -u <user> --password=<password> <database>
+```
+
+### Taille
 Liste la taille de chacune des base de données
 ```
 SELECT table_schema AS "Database", SUM(data_length + index_length) / 1024 / 1024 AS "Size (MB)" FROM information_schema.TABLES GROUP BY table_schema;
