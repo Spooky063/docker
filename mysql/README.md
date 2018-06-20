@@ -102,6 +102,21 @@ Vous pourrez ensuite vous connecter avec les identifiants présent dans le fichi
 
 ## Manipulations
 
+### Création de BDD
+Attention : il faut bien vérifier que le container tourne.  
+
+Pour la création d'une base de données, il est possible d'utiliser plusieurs commande selon le `charset` voulu.
+```bash
+docker exec <mysql_container_name> /usr/bin/mysql -u <user> --password=<password> -e 'CREATE DATABASE `<database>` CHARACTER SET utf8 COLLATE utf8_general_ci'
+
+docker exec <mysql_container_name> /usr/bin/mysql -u <user> --password=<password> -e 'CREATE DATABASE `<database>` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci'
+```
+
+Pour changer les accès d'une base, c'est aussi très simple
+```bash
+docker exec <mysql_container_name> /usr/bin/mysql -u <user> --password=<password> -e 'GRANT ALL ON `<database>`.* TO <user>@localhost IDENTIFIED BY `<password>`'
+```
+
 ### Backup
 Attention : il faut bien vérifier que le container tourne.
 ```bash
