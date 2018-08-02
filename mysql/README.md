@@ -68,7 +68,7 @@ Pour lancer PhpMyAdmin, on utilise plusieurs options :
  * p : choisir quelle port on lie au port `80` de l'image phpmyadmin
 
 ```bash
-docker run --rm --name pma --link <mysql_container_name>:db --net <network> -p <port_out>:80 phpmyadmin/phpmyadmin
+docker run --rm --name pma --link <mysql_container_name>:db --net <network> -e PMA_ARBITRARY=1 -p <port_out>:80 phpmyadmin/phpmyadmin
 ```
 
 Pour lancer la commande et avoir l'outil phpmyadmin.
